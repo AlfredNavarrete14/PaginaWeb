@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Información de Dispositivos Médicos</title>
+    <style>
+        body {
+            /* Eliminamos el background-color y agregamos la imagen */
+            background-image: url('inicio.png'); /* Reemplaza 'fondo_hospital.jpg' con la ruta de tu imagen */
+            background-size: cover; /* Cubre todo el fondo */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            color: #000000; /* Negro */
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra los elementos horizontalmente */
+            position: relative; /* Para posicionar la barra de usuario */
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px; /* Aumentamos el margen superior para dar espacio */
+            margin-bottom: 30px;
+            color: #FFFFFF; /* Texto blanco para mejor contraste con la imagen de fondo */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el título */
+            padding: 10px;
+            border-radius: 5px;
+            position: relative; /* Para controlar el z-index si fuera necesario */
+        }
+
+        .barra-usuario {
+            position: absolute;
+            top: 10px; /* Lo dejamos en 10px, pero podemos ajustarlo si es necesario */
+            right: 10px;
+            z-index: 10; /* Aseguramos que esté por encima de otros elementos */
+        }
+
+        .menu-usuario {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-usuario button {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .opciones-usuario {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            right: 0; /* Alineamos el menú desplegable a la derecha del botón */
+        }
+
+        .opciones-usuario a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left; /* Alineamos el texto a la izquierda dentro de las opciones */
+        }
+
+        .opciones-usuario a:hover {background-color: #ddd;}
+
+        .menu-usuario:hover .opciones-usuario {
+            display: block;
+        }
+
+        .dispositivo {
+            background-color: #FFFFFF;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 700px; /* Aumentamos un poco el ancho máximo para dar espacio */
+            box-shadow: 2px 2px 5px #888888;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Espacio entre imagen e info */
+        }
+
+        .dispositivo img {
+            max-width: 150px;
+            height: auto;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        .dispositivo-info {
+            flex-grow: 1;
+        }
+
+        .dispositivo-estado {
+            margin-left: 15px;
+            font-weight: bold;
+            /* Alineación a la derecha */
+        }
+
+        .integrantes {
+            margin-top: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #FFFFFF; /* Texto blanco para mejor contraste */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="barra-usuario">
+        <div class="menu-usuario">
+            <button>Inicio de Sesión</button>
+            <div class="opciones-usuario">
+                <a href="#">Administrador</a>
+                <a href="#">Usuario</a>
+            </div>
+        </div>
+    </div>
+
+    <h1>Sistema de Información para la Integración de Dispositivos Médicos y Gestión de Datos Hospitalarios</h1>
+
+    <div class="dispositivo">
+        <img src="monitor.jpg" alt="Monitor de Paciente">
+        <div class="dispositivo-info">
+            <h3>Monitor de Paciente</h3>
+            <p>Dispositivo utilizado para la monitorización continua de signos vitales como frecuencia cardíaca, presión arterial, saturación de oxígeno, etc.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-monitor"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="bomba.jpg" alt="Bomba de Infusión">
+        <div class="dispositivo-info">
+            <h3>Bomba de Infusión</h3>
+            <p>Equipo médico utilizado para administrar fluidos, medicamentos y nutrientes a los pacientes de manera controlada.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-bomba"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="ventilador.jpg" alt="Ventilador Mecánico">
+        <div class="dispositivo-info">
+            <h3>Ventilador Mecánico</h3>
+            <p>Dispositivo de soporte vital que ayuda a los pacientes a respirar cuando no pueden hacerlo por sí mismos.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-ventilador"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="electro.jpg" alt="Electrocardiógrafo (ECG)">
+        <div class="dispositivo-info">
+            <h3>Electrocardiógrafo (ECG)</h3>
+            <p>Equipo que registra la actividad eléctrica del corazón a lo largo del tiempo mediante electrodos colocados en la piel.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-electro"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="desfri.jpg" alt="Desfibrilador">
+        <div class="dispositivo-info">
+            <h3>Desfibrilador</h3>
+            <p>Dispositivo que aplica una descarga eléctrica al corazón para restaurar un ritmo cardíaco normal en casos de arritmias graves.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-desfri"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="oxi.jpg" alt="Oxímetro de Pulso">
+        <div class="dispositivo-info">
+            <h3>Oxímetro de Pulso</h3>
+            <p>Dispositivo no invasivo que mide el nivel de saturación de oxígeno en la sangre de un paciente.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-oxi"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="x.jpg" alt="Equipo de Rayos X">
+        <div class="dispositivo-info">
+            <h3>Equipo de Rayos X</h3>
+            <p>Sistema de diagnóstico por imágenes que utiliza radiación electromagnética para visualizar el interior del cuerpo.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-x"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="ultra.jpg" alt="Equipo de Ultrasonido">
+        <div class="dispositivo-info">
+            <h3>Equipo de Ultrasonido</h3>
+            <p>Dispositivo de diagnóstico por imágenes que utiliza ondas sonoras de alta frecuencia para crear imágenes de los órganos y tejidos internos.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-ultra"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="bistu.jpg" alt="Bisturí Eléctrico">
+        <div class="dispositivo-info">
+            <h3>Bisturí Eléctrico</h3>
+            <p>Instrumento quirúrgico que utiliza corriente eléctrica para cortar tejido y coagular vasos sanguíneos durante las cirugías.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-bistu"></div>
+    </div>
+
+    <div class="dispositivo">
+        <img src="auto.jpg" alt="Autoclave">
+        <div class="dispositivo-info">
+            <h3>Autoclave</h3>
+            <p>Equipo utilizado para esterilizar instrumentos y materiales médicos mediante vapor de agua a alta presión y temperatura.</p>
+        </div>
+        <div class="dispositivo-estado" id="estado-auto"></div>
+    </div>
+
+    <div class="integrantes">
+        Integrantes del Proyecto:
+        <p>ALFRED DAVID NAVARRETE PEREA</p>
+        <p>JUAN JOSE GONZALEZ DAGUA</p>
+        <p>HANS JOSEPH SCHNEIDER</p>
+        <p>DIEGO ALEXANDER VALLECILLA OBONAGA</p>
+        <p>CESAR MAURICIO VIDAL QUITUMBO</p>
+    </div>
+
+    <script>
+        function asignarEstadoAleatorio() {
+            const estados = ["Disponible", "Ocupado"];
+            const elementosEstado = document.querySelectorAll('.dispositivo-estado');
+
+            elementosEstado.forEach(elemento => {
+                const estadoAleatorio = estados[Math.floor(Math.random() * estados.length)];
+                elemento.textContent = estadoAleatorio;
+                if (estadoAleatorio === "Disponible") {
+                    elemento.style.color = "green";
+                } else {
+                    elemento.style.color = "red";
+                }
+            });
+        }
+
+        // Asignar el estado aleatorio cuando la página se carga
+        window.onload = asignarEstadoAleatorio;
+    </script>
+</body>
+</html>
